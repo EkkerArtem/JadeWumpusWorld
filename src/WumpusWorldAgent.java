@@ -10,11 +10,10 @@ import jade.lang.acl.MessageTemplate;
 
 import java.util.*;
 
-public class WampusWorldAgent extends Agent {
+public class WumpusWorldAgent extends Agent {
 
     public static String SERVICE_DESCRIPTION = "WAMPUS-WORLD";
     private static int START = -1;
-    //    private static int EMPTY = 0;
     private static int WAMPUS = 1;
     private static int PIT = 2;
     private static int BREEZE = 3;
@@ -142,28 +141,28 @@ public class WampusWorldAgent extends Agent {
                 String answer = "";
                 if (message.equals(SpeleologistAgent.actionCodes.get(SpeleologistAgent.LOOK_DOWN))){
                     for (int i = 0; i < row; ++i){
-                        if (wampusMap[i][column].events.contains(WampusWorldAgent.roomCodes.get(WAMPUS))){
+                        if (wampusMap[i][column].events.contains(WumpusWorldAgent.roomCodes.get(WAMPUS))){
                             answer = NavigatorAgent.SCREAM;
                         }
                     }
                 }
                 else if(message.equals(SpeleologistAgent.actionCodes.get(SpeleologistAgent.LOOK_UP))){
                     for (int i = row+1; i < NUM_OF_ROWS; ++i){
-                        if (wampusMap[i][column].events.contains(WampusWorldAgent.roomCodes.get(WAMPUS))){
+                        if (wampusMap[i][column].events.contains(WumpusWorldAgent.roomCodes.get(WAMPUS))){
                             answer = NavigatorAgent.SCREAM;
                         }
                     }
                 }
                 else if(message.equals(SpeleologistAgent.actionCodes.get(SpeleologistAgent.LOOK_LEFT))){
                     for (int i = 0; i < column; ++i){
-                        if (wampusMap[row][i].events.contains(WampusWorldAgent.roomCodes.get(WAMPUS))){
+                        if (wampusMap[row][i].events.contains(WumpusWorldAgent.roomCodes.get(WAMPUS))){
                             answer = NavigatorAgent.SCREAM;
                         }
                     }
                 }
                 else if (message.equals(SpeleologistAgent.actionCodes.get(SpeleologistAgent.LOOK_RIGHT))){
                     for (int i = column+1; i < NUM_OF_COLUMNS; ++i){
-                        if (wampusMap[row][i].events.contains(WampusWorldAgent.roomCodes.get(WAMPUS))){
+                        if (wampusMap[row][i].events.contains(WumpusWorldAgent.roomCodes.get(WAMPUS))){
                             answer = NavigatorAgent.SCREAM;
                         }
                     }
@@ -230,14 +229,13 @@ public class WampusWorldAgent extends Agent {
             MessageTemplate mt = MessageTemplate.MatchPerformative(SpeleologistAgent.TAKE_GOLD);
             ACLMessage msg = myAgent.receive(mt);
             if (msg != null) {
-                String message = msg.getContent();
                 AID current_Speleologist = msg.getSender();
                 Coords Speleologist_coords = Speleologists.get(current_Speleologist);
                 if (Speleologist_coords == null){
                     Speleologists.put(current_Speleologist, new Coords(0, 0));
                 }
                 else {
-                    if (wampusMap[Speleologist_coords.row][Speleologist_coords.column].events.contains(WampusWorldAgent.roomCodes.get(GOLD))){
+                    if (wampusMap[Speleologist_coords.row][Speleologist_coords.column].events.contains(WumpusWorldAgent.roomCodes.get(GOLD))){
                         ACLMessage reply = msg.createReply();
                         reply.setPerformative(SpeleologistAgent.TAKE_GOLD);
                         reply.setContent("GOLD");
@@ -255,13 +253,13 @@ class Room {
     ArrayList<String> events = new ArrayList<>();
     Room (int... args){
         for (int i: args){
-            events.add(WampusWorldAgent.roomCodes.get(i));
+            events.add(WumpusWorldAgent.roomCodes.get(i));
         }
     }
 }
 class Coords {
-    int row = 0;
-    int column = 0;
+    int row;
+    int column;
     Coords(int row, int column){
         this.row = row;
         this.column = column;

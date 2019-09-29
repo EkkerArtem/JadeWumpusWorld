@@ -12,7 +12,6 @@ import java.util.Objects;
 
 public class SpeleologistAgent extends Agent {
 
-//    private static int WORLD_SEARCH_PAUSE = 2000;
     public static int LOOK_RIGHT = 0;
     public static int LOOK_LEFT = 1;
     public static int LOOK_UP = 2;
@@ -37,7 +36,6 @@ public class SpeleologistAgent extends Agent {
     public static String WORLD_DIGGER_CONVERSATION_ID = "digger-world";
     public static String NAVIGATOR_DIGGER_CONVERSATION_ID = "digger-navigator";
 
-    private int arrowCount = 1;
     private AID wampusWorld;
     private AID navigationAgent;
     private String currentWorldState = "";
